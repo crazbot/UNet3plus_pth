@@ -4,7 +4,6 @@ import os
 import numpy as np
 import torch
 import torch.nn.functional as F
-import torchsummary as summary
 
 from PIL import Image
 from torchvision import transforms

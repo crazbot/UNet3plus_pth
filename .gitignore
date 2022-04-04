@@ -4,3 +4,6 @@ ckpts/
 log/
 LR.png
 runs/
+venv/
+deps/
+INTERRUPTED.pt

@@ -11,7 +11,7 @@ from torchvision import models
 class UNet2Plus(nn.Module):
     def __init__(self, n_channels=3, n_classes=1, bilinear=True, feature_scale=4, 
                  is_deconv=True, is_batchnorm=True, is_ds=True):
-        super(UNet_2Plus, self).__init__()
+        super(UNet2Plus, self).__init__()
         self.n_channels = n_channels
         self.n_classes = n_classes
         self.bilinear = bilinear
@@ -99,9 +99,9 @@ class UNet2Plus(nn.Module):
         final = (final_1 + final_2 + final_3 + final_4) / 4
 
         if self.is_ds:
-            return F.sigmoid(final)
+            return torch.sigmoid(final)
         else:
-            return F.sigmoid(final_4)
+            return torch.sigmoid(final_4)
 
 
 if __name__ == '__main__':

@@ -64,7 +64,7 @@ class UNet3Plus(nn.Module):
         self.h4_Cat_hd4_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd4->40*40, Upsample 2 times
-        self.hd5_UT_hd4 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd5_UT_hd4 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd4_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd4_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd4_relu = nn.ReLU(inplace=True)
@@ -93,13 +93,13 @@ class UNet3Plus(nn.Module):
         self.h3_Cat_hd3_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd4->80*80, Upsample 2 times
-        self.hd4_UT_hd3 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd4_UT_hd3 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd3_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd3_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd3_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd4->80*80, Upsample 4 times
-        self.hd5_UT_hd3 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd5_UT_hd3 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd3_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd3_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd3_relu = nn.ReLU(inplace=True)
@@ -122,19 +122,19 @@ class UNet3Plus(nn.Module):
         self.h2_Cat_hd2_relu = nn.ReLU(inplace=True)
 
         # hd3->80*80, hd2->160*160, Upsample 2 times
-        self.hd3_UT_hd2 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd3_UT_hd2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd3_UT_hd2_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd3_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd3_UT_hd2_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd2->160*160, Upsample 4 times
-        self.hd4_UT_hd2 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd4_UT_hd2 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd2_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd2_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd2->160*160, Upsample 8 times
-        self.hd5_UT_hd2 = nn.Upsample(scale_factor=8, mode='bilinear')  # 14*14
+        self.hd5_UT_hd2 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd2_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd2_relu = nn.ReLU(inplace=True)
@@ -151,25 +151,25 @@ class UNet3Plus(nn.Module):
         self.h1_Cat_hd1_relu = nn.ReLU(inplace=True)
 
         # hd2->160*160, hd1->320*320, Upsample 2 times
-        self.hd2_UT_hd1 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd2_UT_hd1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd2_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd2_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd2_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd3->80*80, hd1->320*320, Upsample 4 times
-        self.hd3_UT_hd1 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd3_UT_hd1 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd3_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd3_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd3_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd1->320*320, Upsample 8 times
-        self.hd4_UT_hd1 = nn.Upsample(scale_factor=8, mode='bilinear')  # 14*14
+        self.hd4_UT_hd1 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd1->320*320, Upsample 16 times
-        self.hd5_UT_hd1 = nn.Upsample(scale_factor=16, mode='bilinear')  # 14*14
+        self.hd5_UT_hd1 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd1_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd1_relu = nn.ReLU(inplace=True)
@@ -236,7 +236,7 @@ class UNet3Plus(nn.Module):
         hd1 = self.relu1d_1(self.bn1d_1(self.conv1d_1(torch.cat((h1_Cat_hd1, hd2_UT_hd1, hd3_UT_hd1, hd4_UT_hd1, hd5_UT_hd1), 1)))) # hd1->320*320*UpChannels
 
         d1 = self.outconv1(hd1)  # d1->320*320*n_classes
-        return F.sigmoid(d1)
+        return torch.sigmoid(d1)
 
 
 #UNet 3+ with deep supervision
@@ -297,7 +297,7 @@ class UNet3Plus_DeepSup(nn.Module):
         self.h4_Cat_hd4_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd4->40*40, Upsample 2 times
-        self.hd5_UT_hd4 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd5_UT_hd4 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd4_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd4_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd4_relu = nn.ReLU(inplace=True)
@@ -326,13 +326,13 @@ class UNet3Plus_DeepSup(nn.Module):
         self.h3_Cat_hd3_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd4->80*80, Upsample 2 times
-        self.hd4_UT_hd3 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd4_UT_hd3 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd3_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd3_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd3_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd4->80*80, Upsample 4 times
-        self.hd5_UT_hd3 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd5_UT_hd3 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd3_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd3_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd3_relu = nn.ReLU(inplace=True)
@@ -355,19 +355,19 @@ class UNet3Plus_DeepSup(nn.Module):
         self.h2_Cat_hd2_relu = nn.ReLU(inplace=True)
 
         # hd3->80*80, hd2->160*160, Upsample 2 times
-        self.hd3_UT_hd2 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd3_UT_hd2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd3_UT_hd2_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd3_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd3_UT_hd2_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd2->160*160, Upsample 4 times
-        self.hd4_UT_hd2 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd4_UT_hd2 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd2_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd2_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd2->160*160, Upsample 8 times
-        self.hd5_UT_hd2 = nn.Upsample(scale_factor=8, mode='bilinear')  # 14*14
+        self.hd5_UT_hd2 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd2_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd2_relu = nn.ReLU(inplace=True)
@@ -384,25 +384,25 @@ class UNet3Plus_DeepSup(nn.Module):
         self.h1_Cat_hd1_relu = nn.ReLU(inplace=True)
 
         # hd2->160*160, hd1->320*320, Upsample 2 times
-        self.hd2_UT_hd1 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd2_UT_hd1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd2_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd2_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd2_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd3->80*80, hd1->320*320, Upsample 4 times
-        self.hd3_UT_hd1 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd3_UT_hd1 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd3_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd3_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd3_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd1->320*320, Upsample 8 times
-        self.hd4_UT_hd1 = nn.Upsample(scale_factor=8, mode='bilinear')  # 14*14
+        self.hd4_UT_hd1 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd1->320*320, Upsample 16 times
-        self.hd5_UT_hd1 = nn.Upsample(scale_factor=16, mode='bilinear')  # 14*14
+        self.hd5_UT_hd1 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd1_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd1_relu = nn.ReLU(inplace=True)
@@ -413,11 +413,11 @@ class UNet3Plus_DeepSup(nn.Module):
         self.relu1d_1 = nn.ReLU(inplace=True)
 
         # -------------Bilinear Upsampling--------------
-        self.upscore6 = nn.Upsample(scale_factor=32, mode='bilinear')###
-        self.upscore5 = nn.Upsample(scale_factor=16, mode='bilinear')
-        self.upscore4 = nn.Upsample(scale_factor=8, mode='bilinear')
-        self.upscore3 = nn.Upsample(scale_factor=4, mode='bilinear')
-        self.upscore2 = nn.Upsample(scale_factor=2, mode='bilinear')
+        self.upscore6 = nn.Upsample(scale_factor=32, mode='bilinear', align_corners=False)###
+        self.upscore5 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=False)
+        self.upscore4 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)
+        self.upscore3 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)
+        self.upscore2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
 
         # DeepSup
         self.outconv1 = nn.Conv2d(self.UpChannels, n_classes, 3, padding=1)
@@ -492,7 +492,7 @@ class UNet3Plus_DeepSup(nn.Module):
         d2 = self.upscore2(d2) # 128->256
 
         d1 = self.outconv1(hd1) # 256
-        return F.sigmoid(d1), F.sigmoid(d2), F.sigmoid(d3), F.sigmoid(d4), F.sigmoid(d5)
+        return torch.sigmoid(d1), torch.sigmoid(d2), torch.sigmoid(d3), torch.sigmoid(d4), torch.sigmoid(d5)
     
 
 #UNet 3+ with deep supervision and class-guided module
@@ -553,7 +553,7 @@ class UNet3Plus_DeepSup_CGM(nn.Module):
         self.h4_Cat_hd4_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd4->40*40, Upsample 2 times
-        self.hd5_UT_hd4 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd5_UT_hd4 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd4_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd4_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd4_relu = nn.ReLU(inplace=True)
@@ -582,13 +582,13 @@ class UNet3Plus_DeepSup_CGM(nn.Module):
         self.h3_Cat_hd3_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd4->80*80, Upsample 2 times
-        self.hd4_UT_hd3 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd4_UT_hd3 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd3_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd3_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd3_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd4->80*80, Upsample 4 times
-        self.hd5_UT_hd3 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd5_UT_hd3 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd3_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd3_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd3_relu = nn.ReLU(inplace=True)
@@ -611,19 +611,19 @@ class UNet3Plus_DeepSup_CGM(nn.Module):
         self.h2_Cat_hd2_relu = nn.ReLU(inplace=True)
 
         # hd3->80*80, hd2->160*160, Upsample 2 times
-        self.hd3_UT_hd2 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd3_UT_hd2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd3_UT_hd2_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd3_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd3_UT_hd2_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd2->160*160, Upsample 4 times
-        self.hd4_UT_hd2 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd4_UT_hd2 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd2_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd2_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd2->160*160, Upsample 8 times
-        self.hd5_UT_hd2 = nn.Upsample(scale_factor=8, mode='bilinear')  # 14*14
+        self.hd5_UT_hd2 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd2_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd2_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd2_relu = nn.ReLU(inplace=True)
@@ -640,25 +640,25 @@ class UNet3Plus_DeepSup_CGM(nn.Module):
         self.h1_Cat_hd1_relu = nn.ReLU(inplace=True)
 
         # hd2->160*160, hd1->320*320, Upsample 2 times
-        self.hd2_UT_hd1 = nn.Upsample(scale_factor=2, mode='bilinear')  # 14*14
+        self.hd2_UT_hd1 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)  # 14*14
         self.hd2_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd2_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd2_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd3->80*80, hd1->320*320, Upsample 4 times
-        self.hd3_UT_hd1 = nn.Upsample(scale_factor=4, mode='bilinear')  # 14*14
+        self.hd3_UT_hd1 = nn.Upsample(scale_factor=4, mode='bilinear', align_corners=False)  # 14*14
         self.hd3_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd3_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd3_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd4->40*40, hd1->320*320, Upsample 8 times
-        self.hd4_UT_hd1 = nn.Upsample(scale_factor=8, mode='bilinear')  # 14*14
+        self.hd4_UT_hd1 = nn.Upsample(scale_factor=8, mode='bilinear', align_corners=False)  # 14*14
         self.hd4_UT_hd1_conv = nn.Conv2d(self.UpChannels, self.CatChannels, 3, padding=1)
         self.hd4_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd4_UT_hd1_relu = nn.ReLU(inplace=True)
 
         # hd5->20*20, hd1->320*320, Upsample 16 times
-        self.hd5_UT_hd1 = nn.Upsample(scale_factor=16, mode='bilinear')  # 14*14
+        self.hd5_UT_hd1 = nn.Upsample(scale_factor=16, mode='bilinear', align_corners=False)  # 14*14
         self.hd5_UT_hd1_conv = nn.Conv2d(filters[4], self.CatChannels, 3, padding=1)
         self.hd5_UT_hd1_bn = nn.BatchNorm2d(self.CatChannels)
         self.hd5_UT_hd1_relu = nn.ReLU(inplace=True)
@@ -669,11 +669,11 @@ class UNet3Plus_DeepSup_CGM(nn.Module):
         self.relu1d_1 = nn.ReLU(inplace=True)
 
         # -------------Bilinear Upsampling--------------
-        self.upscore6 = nn.Upsample(scale_factor=32,mode='bilinear')###
-        self.upscore5 = nn.Upsample(scale_factor=16,mode='bilinear')
-        self.upscore4 = nn.Upsample(scale_factor=8,mode='bilinear')
-        self.upscore3 = nn.Upsample(scale_factor=4,mode='bilinear')
-        self.upscore2 = nn.Upsample(scale_factor=2, mode='bilinear')
+        self.upscore6 = nn.Upsample(scale_factor=32,mode='bilinear', align_corners=False)###
+        self.upscore5 = nn.Upsample(scale_factor=16,mode='bilinear', align_corners=False)
+        self.upscore4 = nn.Upsample(scale_factor=8,mode='bilinear', align_corners=False)
+        self.upscore3 = nn.Upsample(scale_factor=4,mode='bilinear', align_corners=False)
+        self.upscore2 = nn.Upsample(scale_factor=2, mode='bilinear', align_corners=False)
 
         # DeepSup
         self.outconv1 = nn.Conv2d(self.UpChannels, n_classes, 3, padding=1)
@@ -773,4 +773,4 @@ class UNet3Plus_DeepSup_CGM(nn.Module):
         d3 = self.dotProduct(d3, cls_branch_max)
         d4 = self.dotProduct(d4, cls_branch_max)
         d5 = self.dotProduct(d5, cls_branch_max)
-        return F.sigmoid(d1), F.sigmoid(d2), F.sigmoid(d3), F.sigmoid(d4), F.sigmoid(d5)
+        return torch.sigmoid(d1), torch.sigmoid(d2), torch.sigmoid(d3), torch.sigmoid(d4), torch.sigmoid(d5)

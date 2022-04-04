@@ -79,4 +79,4 @@ class UNet(nn.Module):
         up1 = self.up_concat1(up2, conv1)  # 16*512*1024
 
         d1 = self.outconv1(up1)  # 256
-        return F.sigmoid(d1)
+        return torch.sigmoid(d1)
